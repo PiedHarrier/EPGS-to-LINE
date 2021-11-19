@@ -1,7 +1,7 @@
 # EPGS-to-LINE
 
 ## Setup
-run.shを開いてLINE トークンを書き込みEpgstation のconfigへコピー
+run.shを開いてLINE トークンを書き込みEpgstation のconfigへコピーしchmod +x
 
 config.ymlに下記コマンドを追加
 ```
