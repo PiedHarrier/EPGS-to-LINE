@@ -1,5 +1,7 @@
 #!/bin/sh
-# 環境変数 "URL" に Discord の Webhook URL を指定してください。
+
+# 環境変数 LINE_TOKEN に取得したトークンを指定してください。
+LINE_TOKEN="ここにLINE_TOKEN貼り付け"
 
 if [ $# = 1 ]; then
 
@@ -28,7 +30,7 @@ if [ $# = 1 ]; then
     # 引数をコピー (コマンドとして認識されるのを防ぐため)
     ret=$1
 
-    # 予約関係: 追加, 削除, 更新, 録画準備
+   # 予約関係: 追加, 削除, 更新, 録画準備
     if [ $ret = "reserve" ]; then
         content="✅ **予約追加**\n番組名: ${title} @ ${CHANNELTYPE} ${CHANNELNAME}\n番組概要:\n\`\`\`\n${description}\n\`\`\`"
     elif [ $ret = "delete" ]; then
@@ -81,9 +83,10 @@ if [ $# = 1 ]; then
         echo "引数が不正です。"
         exit 1
     fi
+        
     
-    # cURL で Webhook メッセージを送信
-    curl -H "Content-Type: application/json" -X POST -d '{"username": "EPGStation", "content": "'"$content"'"}' $URL
+    curl -X POST -H "Authorization: Bearer ${LINE_TOKEN}" -F "message=${content}" https://notify-api.line.me/api/notify
+    
 else
     echo "引数を指定してください。"
 fi
